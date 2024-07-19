@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}   
+Search
+{% endblock %}
+{% block start %}
+<header>
+    <div class="mt-3 m-2">
+        <form method="get" action="{% url 'search' %}">
+            <label for="movie">Find a User</label>
+            <input type="search" id="movie" name="q" />
+            <button type="submit" class="btn btn-outline-dark">Search</button>
+        </form>
+    </div>
+</header>
+
+{% if users %}
+<div class="card-container">
+    {% for user in users %}
+    <div class="card-2" style="background-color: rgb(255, 255, 255);   box-shadow: 5px 6px 6px 2px #e9ecef;
+">
+        {% if user.profile.profile_pic %}
+        <div class="card__avatar profile-card d-flex mb-2"><img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+        <a href="{%url 'profile' user.id %}" class="card__username mt-2 m-2">{{ user.username }}</a>
+    </div>
+            {%else%}
+            <div class="card__avatar profile-card d-flex mb-2"><img src="" alt="Profile Picture" class="profile_pic">
+                <a href="" class="card__username mt-2 m-2">{{ user.username }}</a>
+
+            </div>
+        
+        {% endif %}
+        <div class="card__info mt-3">
+            <div class="card__actions">
+                <button class="card__btn">Follow</button>
+                <button class="card__btn card__btn-solid">Message</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% elif query %}
+<p>No users found for "{{ query }}"</p>
+{% endif %}
+<a href="/" class="btn btn-primary m-3">Back</a>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html'%} 
+
+{% block start %}
+<p class="mb-3 mt-1" style="display: flex; align-items: center; justify-content: center;" >Tweets of {{user.username}}</p>
+<div class="container-fluid main d-flex gap-1" style="max-width:400px ;">
+{% for tweet in tweets %}
+<div class=" mb-3 " style="">
+  <div class="card mb-3 mt-1" style="border-radius: 10px;">
+    <a href="{% url 'tweet_detail' tweet.id %}">
+
+    {% if tweet.photo %}
+    <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+    {% endif %}
+    {% if tweet.video %}
+    <video autoplay   width="320" height="240" controls style=" max-width: 575px;  width: 100%; ">
+        <source src="{{ tweet.video.url }}" type="video/mp4" style="object-fit: cover;  max-width: 575px;  width: 100%; ">
+        Your browser does not support the video tag.
+    </video>
+{% endif %}
+
+    </a>
+    <div class="card-body">
+      <h5 class="card-title">
+        <span>
+          {% if tweet.user.profile.profile_pic %}
+          <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+            {% endif %}
+        </span>
+        {{ tweet.user.username }}
+      </h5>
+      <p class="card-text">{{ tweet.text }}</p>
+      {% if tweet.updated_at %}
+      {% else %}
+      {% endif %}
+<div>
+
+</div>
+<div class="contents mt-2">
+      <form action="{% url 'like_tweet' tweet.id %}" method="post" >
+        {% csrf_token %}
+        <button type="submit" style="border: none; background: none;">
+            {% if user in tweet.likes.all %}
+            <i class="fa-solid fa-heart" style="color: #f50505; font-size: 30px;"></i>
+            {% else %}
+            <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
+            {% endif %}
+        </button>
+        <p>Likes: {{ tweet.total_likes }}</p>
+    </form>
+    <div>
+      
+      {% if tweet.user == user %}
+      <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+      <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+  
+</div>
+          {% endfor %}
+</div>
+</div>
+  <!-- <li>
+        <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
+        </li>
+        <li>
+          <a href="setting/"><i class="fa-regular fa-user" style="color: #000000;"></i> Setting</a>
+          </li>
+    </div> -->
+
+{% endblock %}

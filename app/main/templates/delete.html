@@ -1,0 +1,27 @@
+{% extends 'base.html'%} 
+{% block title %}   
+Delete
+{% endblock %}
+
+{% block start %}
+
+<h2>Delete Tweet
+</h2>
+
+<form method="post"class="form m-4">
+ {% csrf_token %}
+
+    <button class="btn btn-danger" type="submit">delete</button>
+
+    <a href="{% url 'tweetlist' %}" class="btn btn-primary m-4 p-2">Cancel</a>
+
+</form>
+
+
+<div class="reply-actions">
+    {% if reply.user == request.user %}
+        <a href="{% url 'reply_delete' tweet.id comment.id reply.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+</div>
+
+{% endblock %}

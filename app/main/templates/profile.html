@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}   
+Profile
+{% endblock %}
+
+{% block start %}
+<section class="h-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center">
+      <div class="col col-lg-9 col-xl-8">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+              {% if user.profile.profile_pic %}
+                <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+              {% endif %}
+              {% if request.user == user %}
+                <a href="{% url 'edit_profile' %}" type="button" class="btn btn-outline-dark text-body mt-5" style="z-index: 1;">
+                  Edit profile
+                </a>
+              {% endif %}
+            </div>
+            <div class="ms-3" style="margin-top: 130px;">
+              <h5>{{ user.username }}</h5>
+              <p>{{ user.profile.country }}</p>
+            </div>
+          </div>
+          <div class="p-4 text-black bg-body-tertiary">
+            <div class="d-flex justify-content-end text-center py-1 text-body">
+              <div>
+                <p class="mb-1 h5">253</p>
+                <p class="small text-muted mb-0">Photos</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5">1M</p>
+                <p class="small text-muted mb-0">Followers</p>
+              </div>
+              <div>
+                <p class="mb-1 h5">478</p>
+                <p class="small text-muted mb-0">Following</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="mb-5 text-body">
+              <p class="lead fw-normal mb-1">About</p>
+              <div class="p-4 bg-body-tertiary">
+                <!-- <p class="font-italic mb-1">Email: {{ user.email }}</p> -->
+                <p class="font-italic mb-1">Lives in: 
+                   {% if user.profile.country %}
+                  <img src="https://flagcdn.com/{{ user.profile.country.code|lower }}.svg" alt="{{ user.profile.country.name }} Flag" style="width: 20px;">
+              {% endif %} 
+              {{ user.profile.country }}</p>
+                <p class="font-italic mb-0">Mobile: {{ user.profile.phone_number }}</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4 text-body">
+              <p class="lead fw-normal mb-0">Recent photos</p>
+              <p class="mb-0"><a href="{% url 'user' %}" class="text-muted">Show all</a></p>
+            </div>
+            <div class="row g-2 ">
+              <div class="col mb-2 d-flex gap-3" style="overflow: hidden; overflow: scroll; max-height: 60vh;">
+                {% for tweet in tweets %}
+                <div class="mb-3">
+                  <div class="card" style="border-radius: 10px; width: 200px; max-width: 400px;">
+                    {% if tweet.photo %}
+                    <a href="{% url 'tweet_detail' tweet.id %}">
+                    <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; min-height: 200px; max-height: 400px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px; border-radius: 10px;">
+                  </a>
+                    {% endif %}
+                    <!-- <div class="card-body"> -->
+                      <!-- <h5 class="card-title"> -->
+                        <span>
+                          {% if tweet.user.profile.google_profile_pic %}
+                          <img src="{{ tweet.user.profile.google_profile_pic }}" alt="Profile Picture" class="profile_pic">
+                          {% endif %}
+                        </span>
+                        <!-- {{ tweet.user.username }} -->
+                      <!-- </h5> -->
+                      <!-- <p class="card-text">{{ tweet.text }}</p> -->
+                      <!-- {% if tweet.updated_at %}
+                      <p class="card-text time">Last Updated: {{ tweet.updated_at }}</p>
+                      {% else %}
+                      <p class="card-text time">Created: {{ tweet.created_at }}</p>
+                      {% endif %}
+                      <div class="contents mt-2">
+                        <form action="{% url 'like_tweet' tweet.id %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" style="border: none; background: none;">
+                              {% if request.user in tweet.likes.all %}
+                              <i class="fa-solid fa-heart" style="color: #f50505; font-size: 25px;"></i>
+                              {% else %}
+                              <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
+                              {% endif %}
+                          </button>
+                          <p>Likes: {{ tweet.total_likes }}</p>
+                        </form>
+                        <div>
+                          {% if tweet.user == request.user %}
+                          <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+                          <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<a href="/" class="btn btn-primary m-3">Back</a>
+
+<!-- Toast Notification -->
+
+{% endblock %}

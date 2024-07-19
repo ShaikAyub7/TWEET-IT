@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+<a href="{% url 'upload' %}">upload</a>
+<h3>It is for testing purpose .please dont take it seriously it can be remove.</h3>
+
+<p class="mb-3 mt-1" style="display: flex; align-items: center; justify-content: center;" >Tweets of {{user.username}}</p>
+<div class="container-fluid main d-flex gap-1" style="max-width:400px ;">
+
+<div class=" mb-3 " style="">
+  <div class="card mb-3 mt-1" style="border-radius: 10px;">
+
+ 
+    {% for reel in reels %}
+    {% if reel.video %}
+        <div class="reel-container" style="max-width: 700px; height: 700px;">
+           
+            <div class="reel-caption">
+                <video id="video_{{ forloop.counter }}" class="tweet-video" controls  style="border-top-left-radius: 20px; border-top-right-radius: 20px;     ;" >
+                    <source src="{{ reel.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>{{ reel.caption }}</p>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+    </a>
+    
+<div>
+
+</div>
+
+     
+    </div>
+  </div>
+</div>
+  
+</div>
+          
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+
+
+
+
+
+<div class="container-fluid main " style="max-width: 600px;">
+  {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+  <!-- <h3 class="text-center mt-3 mb-4">Hello {{ request.user.username }}</h3> -->
+<div class="row justify-content-center gap-1">
+  
+
+    <div class="stories">
+      <div class="add-story  ">
+        <a href="story/ " class="add"><i class="fa-solid fa-plus"></i></a>
+      <p style="margin-left: 15px;" class="card-text time">Add</p>
+    </div>
+      {% for story in all_stories %}
+          <div class="story" style="">
+            <div>
+              {% if story.image.name %}
+              <a href="#" onclick="openImage('{{ story.image.url }}')">
+                <img src="{{ story.image.url }}" alt="Story image" style="object-fit: cover;">
+              {% endif %}
+                <!-- <p>Posted by {{ story.user.username }} at {{ story.created_at }}</p> -->
+                <p style="margin-left:10px;" class="card-text time ">{{story.user}}</p>
+              </div>
+            </div>
+          {% endfor %}
+  </div>
+    {% for tweet in tweets %}
+    <div class=" mb-3" >
+      <div class="card mb-3" style="border-radius: 20px;">
+        <a href="{% url 'tweet_detail' tweet.id %}">
+
+        {% if tweet.photo %}
+        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px;" loading="lazy">
+        {% endif %}
+
+      </a>
+      {% if tweet.video.name %}
+      <video id="video_{{ forloop.counter }}" class="tweet-video" controls muted style="border-top-left-radius: 20px; border-top-right-radius: 20px;  max-width: 600px; width: 100%; height: 100%; max-height:300px ;" >
+          <source src="{{ tweet.video.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+  {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">
+            <span>
+              {% if tweet.user.profile.profile_pic %}
+              <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+                {% endif %}
+            </span>
+            {{ tweet.user.username }}
+          </h5>
+          <p class="card-text">{{ tweet.text }}</p>
+          {% if tweet.updated_at %}
+          <p class="card-text time">Last Updated: {{ tweet.created_at_in_user_timezone  }}</p>
+          {% else %}
+          <p class="card-text time">Created: {{ tweet.created_at_in_user_timezone  }}</p>
+          {% endif %}
+<div>
+  
+</div>
+<div class="contents mt-2">
+          <form action="{% url 'like_tweet' tweet.id %}" method="post" >
+            {% csrf_token %}
+            <button type="submit" style="border: none; background: none;">
+                {% if user in tweet.likes.all %}
+                <i class="fa-solid fa-heart" style="color: #f50505; font-size: 30px;"></i>
+                {% else %}
+                <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
+                {% endif %}
+            </button>
+            <p>Likes: {{ tweet.total_likes }}</p>
+        </form>
+        <div>
+          
+          {% if tweet.user == user %}
+          <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+          <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- <p class="font-italic mb-1"> 
+        {% if user.profile.country %}
+       <img src="https://flagcdn.com/{{ user.profile.country.code|lower }}.svg" alt="{{ user.profile.country.name }} Flag" style="width: 20px;">
+   {% endif %} 
+   {{ user.profile.country }}</p> -->
+        </div>
+        
+      </div>
+          {% endfor %}
+
+
+          
+        
+      </div>
+      
+      </div>
+      </div>
+     
+      <!-- <div class="card-footer">
+        <h5>Replies</h5>
+        <ul class="list-group">
+          {% for reply in tweet.replies.all %}
+          <li class="list-group-item">
+            <strong>{{ reply.user.username }}:</strong> {{ reply.text }}
+            <br>
+            <small class="text-muted">{{ reply.created_at }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+      </div> -->
+  <!-- Navigation Menu -->
+  
+
+  <!-- Toast Notification -->
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100 mt-3">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+        {% if messages %}
+          <ul class="messages message">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
+ 
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'profile' user.id %}"><i class="fa-regular fa-user" style="color: #000000;"></i></a></li>
+{% else %}
+    <li><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="color: #000000;"></i></a></li>
+{% endif %}
+
+<li>
+            <a href="search/"><i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            </li>
+<!-- <li>
+  <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i></a>
+</li> -->
+<li>
+  <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-plus" style="color: #000000;"></i></a>
+</li>
+
+<li>
+  <a href="setting/"><i class="fa-solid fa-gear" style="color: #000000;"></i></a>
+</li>
+
+            <li>
+              <a href="user/"><i class="fa-brands fa-twitter" style="color: #000000;"></i></i>
+              </a>
+              </li>
+              <!-- <li>
+                <a href="reels/"><i class="fa-brands fa-twitter" style="color: #000000;"></i>reels</i>
+                </a>
+                </li> -->
+  
+             
+    </div>
+   
+{% endblock %}

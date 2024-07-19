@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+{% block title %}   
+Create-Story
+{% endblock %}
+{% block start %}
+<form method="post" enctype="multipart/form-data" class="mt-3 m-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add to Story</button>
+</form>
+<a href="/" class="btn btn-primary m-4">Back</a>
+
+{% endblock%}

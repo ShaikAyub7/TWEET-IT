@@ -1,0 +1,28 @@
+<!-- templates/websocket_test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <script>
+        const ws = new WebSocket('ws://' + window.location.host + '/ws/notifications/');
+
+        ws.onmessage = function(event) {
+            const message = JSON.parse(event.data);
+            console.log('Received message: ' + message.message);
+        };
+
+        ws.onopen = function() {
+            console.log('WebSocket connection opened');
+            ws.send(JSON.stringify({'message': 'Hello, WebSocket!'}));
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+    </script>
+</body>
+</html>

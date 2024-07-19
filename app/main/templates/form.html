@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+<h2>{% if form.instance.pk %} Edit Tweet {% else %} Create Tweet {% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'tweetedit' form.instance.pk %}{% else %}{% url 'tweetcreate' %}{% endif %}" class="form m-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-warning" type="submit">Submit</button>
+</form>
+<a href="{% url 'tweetlist' %}" class="btn btn-primary m-4 p-2">Back</a>
+
+{% endblock %}

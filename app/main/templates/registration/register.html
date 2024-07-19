@@ -1,0 +1,27 @@
+<!-- registration/register.html -->
+{% extends 'base.html' %}
+
+{% block start %}
+{% comment %} <h2 class="m-4">Register</h2>
+<form method="post" class="form m-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Register</button>
+</form> {% endcomment %}
+
+
+<form method="post" class="form m-4">
+    {% csrf_token %}
+<div class="mb-3 container">
+    <label for="exampleFormControlInput1" class="form-label">username</label>
+    <input type="username" class="form-control" name='username' id="" placeholder="username">
+    <label for="exampleFormControlInput1" class="form-label">password</label>
+    <input type="password" class="form-control" name='password' id="" placeholder="enter password">
+    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+    <input type="email" class="form-control" name='email' id="exampleFormControlInput1" placeholder="name@example.com">
+ 
+<button type='submit' class='btn btn-primary'> submit</button>
+</form>
+<p class="m-4">if you have an account <a href="{% url 'login'%}" style="color: red;">login here</a></p>
+
+{% endblock %}
