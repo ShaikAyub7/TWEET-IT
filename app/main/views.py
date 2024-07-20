@@ -124,10 +124,7 @@ def tweetdelete(request, tweet_id):
     return render(request, 'delete.html', {'tweet': tweet})
 
 def login_page(request):
-    return render(request, 'login.html')
-
-def register(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -137,7 +134,23 @@ def register(request):
         )
         user.set_password(password)
         user.save()
-        return redirect('login')
+        return redirect('tweetlist')
+    return render(request,'login')
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+
+        user = User.objects.create(
+        username = username,
+        email = email,
+            
+        )
+        user.set_password(password)
+        user.save()
+        return redirect('tweetlist')
     return render(request, 'registration/register.html')
 
 

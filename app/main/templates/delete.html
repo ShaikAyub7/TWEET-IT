@@ -4,16 +4,21 @@ Delete
 {% endblock %}
 
 {% block start %}
+<div class="delete-box container ">
 
-<h2>Delete Tweet
-</h2>
-
-<form method="post"class="form m-4">
- {% csrf_token %}
-
-    <button class="btn btn-danger" type="submit">delete</button>
-
-    <a href="{% url 'tweetlist' %}" class="btn btn-primary m-4 p-2">Cancel</a>
+    
+    <div class="card-3 ">
+        
+        <form method="post"class="form">
+            <h2>Delete Tweet
+                </h2>
+            {% csrf_token %}
+            
+            <button class="btn btn-danger" type="submit">delete</button>
+            
+            <a href="{% url 'tweetlist' %}" class="btn btn-primary m-2 p-2">Cancel</a>
+        </div>
+    </div>
 
 </form>
 
