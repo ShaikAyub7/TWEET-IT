@@ -28,12 +28,16 @@ def tweetlist(request,user_id=None):
         user = request.user if request.user.is_authenticated else None
     
     tweets = Tweet.objects.all().order_by('-created_at')
-    search_query = request.GET.get('search', '')
+    search_query = request.GET.get('search',)
 
     if search_query:
         search_results = Tweet.objects.filter (
-            Q(content__icontains=search_query) |
-            Q(user__username__icontains=search_query)
+            Q(text__icontains = search_query) ,
+            Q(id__icontains = search_query) ,
+            Q(photo__icontains = search_query) ,
+
+
+            
         ).distinct()
 
         if search_results.exists():
@@ -133,7 +137,7 @@ def register(request):
         )
         user.set_password(password)
         user.save()
-        return redirect('tweetlist')
+        return redirect('login')
     return render(request, 'registration/register.html')
 
 
