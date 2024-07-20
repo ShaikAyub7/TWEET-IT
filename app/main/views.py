@@ -124,18 +124,17 @@ def tweetdelete(request, tweet_id):
     return render(request, 'delete.html', {'tweet': tweet})
 
 def login_page(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = User.objects.create(
-        username = username,
-            
-        )
-        user.set_password(password)
-        user.save()
-        return redirect('tweetlist')
-    return render(request,'login')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('tweetlist')
+        else:
+            return render(request, 'login', {'error': 'Invalid username or password'})
+    return render(request, 'login')
 
 def register(request):
     if request.method == 'POST':
@@ -143,13 +142,16 @@ def register(request):
         password = request.POST.get('password')
         email = request.POST.get('email')
 
-        user = User.objects.create(
-        username = username,
-        email = email,
-            
+        if User.objects.filter(username=username).exists():
+            return render(request, 'registration/register.html', {'error': 'Username already exists'})
+        elif User.objects.filter(email=email).exists():
+            return render(request, 'registration/register.html', {'error': 'Email already exists'})
+        
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
         )
-        user.set_password(password)
-        user.save()
         return redirect('tweetlist')
     return render(request, 'registration/register.html')
 
