@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zusv)2q%yf17r4fc#y$hhf5+nave2n_tn85%jjy&91wk7uq5s&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','localhost','tweet-it.vercel.app','*']
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','localhost','*']
 
 
 # Application definition
@@ -162,17 +162,14 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'django_debug.log',
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
+            'handlers': ['console'],
+            'level': 'INFO',
         },
     },
 }
