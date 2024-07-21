@@ -204,16 +204,16 @@ def reply_create(request, tweet_id):
     }
     return render(request, 'tweet_list.html', context)
 
-def reply_delete(request, tweet_id, comment_id, reply_id):
-    reply = get_object_or_404(Reply, id=reply_id)
+# def reply_delete(request, tweet_id, comment_id, reply_id):
+#     reply = get_object_or_404(Reply, id=reply_id)
 
-    if reply.user == request.user:
-        if request.method == 'POST':
-            reply.delete()
-            return redirect('tweet_detail', tweet_id=tweet_id)
-        return render(request, 'delete.html', {'reply': reply})
+#     if reply.user == request.user:
+#         if request.method == 'POST':
+#             reply.delete()
+#             return redirect('tweet_detail', tweet_id=tweet_id)
+#         return render(request, 'delete.html', {'reply': reply})
     
-    return redirect('tweet_detail', tweet_id=tweet_id)
+#     return redirect('tweet_detail', tweet_id=tweet_id)
 
 @login_required
 def like_tweet(request, tweet_id):
