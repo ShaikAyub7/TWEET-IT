@@ -152,7 +152,7 @@ def register(request):
             email=email,
             password=password
         )
-        return redirect('tweetlist')
+        return redirect('login')
     return render(request, 'registration/register.html')
 
 
