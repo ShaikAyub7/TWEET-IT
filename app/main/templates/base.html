@@ -16,7 +16,8 @@ TWEET-IT      {% endblock %}</title>
       crossorigin="anonymous"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'js/script.js' %}"></script>
   </head>
   <style>
    
@@ -927,9 +928,9 @@ object-fit: cover;
           {% if request.user.profile.profile_pic %}
             <img src="{{ request.user.profile.profile_pic.url }}" class="profile-image" alt="Profile Image" style="height: 40px; width: 40px;">
         {% endif %}
-   
+        <!-- <link rel="icon" href="{% static 'photos/tweet.png' %}" type="image/png/svg"> -->
         <a class="navbar-brand " href="#"> &nbsp;TWEET-IT</a>
-        
+        <!-- <img src="{% static 'app/photos/tweet.png' %}" alt=""> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
