@@ -3,15 +3,11 @@
   "builds": [
     {
       "src": "app/wsgi.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
+      "use": "@vercel/python"
     },
     {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles_build"
-      }
+      "src": "app/static/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -23,5 +19,12 @@
       "src": "/(.*)",
       "dest": "app/wsgi.py"
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "DJANGO_COLLECTSTATIC": "True",
+      "DJANGO_SETTINGS_MODULE": "app.settings",
+      "DATABASE_URL": "postgres://user:XwH911nTH9fhI31k0u1FbeUMgK8BMJRn@dpg-cqeg71o8fa8c73e6ec90-a:5432/tweet_it_vohg"
+    }
+  }
 }
