@@ -16,7 +16,7 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/tmp/media/(.*)",
+      "src": "/media/(.*)",
       "dest": "/api/media/$1"
     },
     {
