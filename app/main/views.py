@@ -361,9 +361,12 @@ def reels(request):
 
 
 
-from django.http import FileResponse
+from django.http import FileResponse, Http404
 import os
 
 def media_view(request, path):
     file_path = os.path.join('/tmp/media', path)
-    return FileResponse(open(file_path, 'rb'))
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'))
+    else:
+        raise Http404

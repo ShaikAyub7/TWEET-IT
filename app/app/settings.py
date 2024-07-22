@@ -210,7 +210,8 @@ if DEBUG:
     MEDIA_URL = '/media/'
 else:
     MEDIA_ROOT = '/tmp/media'
-    MEDIA_URL = '/tmp/media/'
+    MEDIA_URL = '/media/'
+    # Ensure /tmp/media is used for temporary file storage in production
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
