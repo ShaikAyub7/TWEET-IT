@@ -27,8 +27,7 @@ urlpatterns = [
     path('create-profile/', views.create_profile, name='create_profile'),
     path('upload/', views.upload_reel, name='upload'),
     path('reels/', views.reels, name='reels'),
-   
-    # path('api/media/<path:path>', views.media_view),
+    path('api/media/<path:path>', views.media_view),
 
 
 ]

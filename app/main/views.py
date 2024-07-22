@@ -361,9 +361,9 @@ def reels(request):
 
 
 
-# from django.http import FileResponse
-# import os
+from django.http import FileResponse
+import os
 
-# def media_view(request, path):
-#     file_path = os.path.join('/tmp/media', path)
-#     return FileResponse(open(file_path, 'rb'))
+def media_view(request, path):
+    file_path = os.path.join('/tmp/media', path)
+    return FileResponse(open(file_path, 'rb'))
