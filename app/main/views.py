@@ -86,7 +86,7 @@ def profile(request, user_id):
     }
 
     return render(request, 'profile.html', context)
-@login_required()
+@login_required
 def tweetcreate(request):
     if request.method == 'POST':
         form = TweetForm(request.POST, request.FILES)
