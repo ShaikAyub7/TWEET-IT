@@ -28,6 +28,7 @@ urlpatterns = [
     path('upload/', views.upload_reel, name='upload'),
     path('reels/', views.reels, name='reels'),
    
+    path('api/media/<path:path>', views.media_view),
 
 
 ]

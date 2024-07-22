@@ -165,6 +165,18 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+import os
+from .custom_storages import DevelopmentStorage, ProductionStorage
+
+if os.getenv('ENVIRONMENT') == 'production':
+    DEFAULT_FILE_STORAGE = 'path.to.custom_storages.ProductionStorage'
+    MEDIA_ROOT = '/tmp/media'
+    MEDIA_URL = '/tmp/media/'
+else:
+    DEFAULT_FILE_STORAGE = 'path.to.custom_storages.DevelopmentStorage'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,
