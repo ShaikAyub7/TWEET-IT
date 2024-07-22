@@ -16,7 +16,7 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/media/(.*)",
+      "src": "/tmp/media/(.*)",
       "dest": "/api/media/$1"
     },
     {
@@ -28,8 +28,7 @@
     "env": {
       "DJANGO_COLLECTSTATIC": "True",
       "DJANGO_SETTINGS_MODULE": "app.settings",
-      "DATABASE_URL": "postgres://user:XwH911nTH9fhI31k0u1FbeUMgK8BMJRn@dpg-cqeg71o8fa8c73e6ec90-a:5432/tweet_it_vohg",
-      "DEBUG": "False"
+      "DATABASE_URL": "postgres://user:XwH911nTH9fhI31k0u1FbeUMgK8BMJRn@dpg-cqeg71o8fa8c73e6ec90-a:5432/tweet_it_vohg"
     }
   }
 }

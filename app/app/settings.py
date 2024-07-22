@@ -143,27 +143,27 @@ LOGOUT_REDIRECT_URL = 'login'
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
-# import os
+import os
 
-# # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# # Static files (CSS, JavaScript, Images)
-# # https://docs.djangoproject.com/en/5.0/howto/static-files/
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
-# # This setting is used by the `collectstatic` command to know where to gather all the static files
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# This setting is used by the `collectstatic` command to know where to gather all the static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# # Additional locations of static files
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
+# Additional locations of static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# # Media files (uploads)
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # import os
 # from ..main.custom_storages import DevelopmentStorage, ProductionStorage
@@ -199,19 +199,3 @@ LOGOUT_REDIRECT_URL = 'login'
 #         },
 #     },
 # }
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
-if DEBUG:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
-else:
-    MEDIA_ROOT = '/tmp/media'
-    MEDIA_URL = '/media/'
-    # Ensure /tmp/media is used for temporary file storage in production
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
