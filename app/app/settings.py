@@ -166,7 +166,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 import os
-from .custom_storages import DevelopmentStorage, ProductionStorage
+from ..main.custom_storages import DevelopmentStorage, ProductionStorage
 
 if os.getenv('ENVIRONMENT') == 'production':
     DEFAULT_FILE_STORAGE = 'path.to.custom_storages.ProductionStorage'
