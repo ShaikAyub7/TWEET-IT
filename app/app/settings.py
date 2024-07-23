@@ -124,7 +124,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-LOGIN_URL ='tweetlist'
+LOGIN_URL ='login'
 LOGIN_REDIRECT_URL = 'tweetlist'
 LOGOUT_REDIRECT_URL = 'login'
 
