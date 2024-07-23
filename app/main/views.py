@@ -32,9 +32,9 @@ def tweetlist(request,user_id=None):
 
     if search_query:
         search_results = Tweet.objects.filter (
-            Q(text__icontains = search_query) ,
-            Q(id__icontains = search_query) ,
-            Q(photo__icontains = search_query) ,
+            Q(text__icontains = search_query)|
+            Q(id__icontains = search_query)|
+            Q(photo__icontains = search_query),
 
 
             
@@ -133,7 +133,7 @@ def login_page(request):
             login(request, user)
             return redirect('tweetlist')
         else:
-            return render(request, 'login', {'error': 'Invalid username or password'})
+            messages.error(request, 'user is already taken.')
     return render(request, 'login')
 
 def register(request):
@@ -143,10 +143,11 @@ def register(request):
         email = request.POST.get('email')
 
         if User.objects.filter(username=username).exists():
-            return render(request, 'registration/register.html', {'error': 'Username already exists'})
+            messages.error(request, 'user is already taken.')
+            return redirect('register')
         elif User.objects.filter(email=email).exists():
-            return render(request, 'registration/register.html', {'error': 'Email already exists'})
-        
+            messages.error(request, 'email is already taken.')
+            return redirect('register')
         user = User.objects.create_user(
             username=username,
             email=email,

@@ -153,13 +153,7 @@
 <div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
  
     {% if user.is_authenticated %}
-    <li class="mobile-img "><a href="{% url 'profile' user.id %}">
-      {% if user.profile.profile_pic %}
-      <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid img-thumbnail mobile-pic" style="width: 150px; z-index: 1">
-      {%else%}
-      <a href="{% url 'profile' user.id %}"><i class="fa-regular fa-user" style="color: #000000;"></i></a>
-    {% endif %}
-
+    <li class="mobile-img "><a href="{% url 'profile' user.id %}"><i class="fa-regular fa-user" style="color: #000000;"></i>
     </a></li>
 {% else %}
     <li><a href="{% url 'login' %}"><i class="fa-regular fa-user" style="color: #000000;"></i></a></li>

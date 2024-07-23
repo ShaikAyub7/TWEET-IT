@@ -40,6 +40,14 @@ TWEET-IT      {% endblock %}</title>
   font-size: 16px;
   /* width: 80px; */
 }
+
+.container-nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+width: 60%;
+
+}
 .mobile-menu {
   /* visibility: visible; */
    position: fixed;
@@ -51,14 +59,15 @@ TWEET-IT      {% endblock %}</title>
   background-color: #a2d2ff;
   color: #000;
   height: 7%;
-  border-radius: 40px; 
+  /* border-radius: 40px;  */
   /* margin-left: 10px; */
    /* margin-right: 10px;  */
 
   padding: 40px;
   z-index: 9999;
   display: flex;
-   justify-content: space-around;
+   justify-content: center;
+   gap: 10%;
 } 
 .mobile-menu li,
 a {
@@ -123,7 +132,11 @@ a {
 }
 .navbar {
   background-color: #a2d2ff;
+  width: 100%;
   position:sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 
   /* top: 0; */
@@ -905,6 +918,9 @@ object-fit: cover;
   margin: 20px auto;
   border-radius: 10px;
 }
+.nav-link{
+  width: 100%;
+}
 .card__btn{
   border: none;
   background: none;
@@ -923,8 +939,8 @@ object-fit: cover;
 }
   </style>
   <body>
-    <nav class="navbar navbar-expand-lg " >
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-xl me-auto" >
+        <div class="container-fluid container-nav">
           {% if request.user.profile.profile_pic %}
             <img src="{{ request.user.profile.profile_pic.url }}" class="profile-image" alt="Profile Image" style="height: 40px; width: 40px;">
         {% endif %}
@@ -937,12 +953,12 @@ object-fit: cover;
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="/"> Home</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
+              </li> -->
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
                 </a>
@@ -952,19 +968,17 @@ object-fit: cover;
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
-              </li>
+              </li> -->
               <!-- <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>
               </li> -->
-              <li class="nav-item">
-
-              </li>
-              <li class="nav-item">
-  <a href="#" class="nav-link">User: {{user.username}}</a>
-              </li>
+           
+              <!-- <li class="nav-item">
+  <a href="#" class="nav-link">User : {{user.username}}</a>
+              </li> -->
              
 <li>
-  <a href="{% url 'login' %}" class="nav-link">logout</a>
+  <a href="{% url 'login' %}" class="nav-link"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> logout</a>
 
 </li>
             </ul>
