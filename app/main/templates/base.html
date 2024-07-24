@@ -29,7 +29,7 @@ TWEET-IT      {% endblock %}</title>
     display: none;
   }
 .main{
-     max-height: 85vh;
+     max-height: 84vh;
      overflow: hidden;
      overflow: scroll;
      max-width: 80vw;
@@ -214,6 +214,9 @@ a {
 @media screen and (max-width: 430px) {
   .menu {
     display: none;
+  }
+  main{
+    max-height: 70vh;
   }
   .brand {
     display: none;
@@ -884,6 +887,40 @@ button {
   height: 30px;
   align-items: center;
 }
+/* Add this CSS to your stylesheet */
+.stories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between stories */
+}
+
+.story {
+  /* Adjust the width of each story as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.story-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.username-container {
+  margin-top: 10px;
+  text-align: center;margin-left: 2px;
+}
+
+.card-text.time {
+  margin: 0;
+}
+
 .mobile-pic{
   width: 30px;
   height: 30px;

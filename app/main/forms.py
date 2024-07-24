@@ -41,3 +41,11 @@ class StoryForm(forms.ModelForm):
     class Meta:
         model = Story
         fields = ['video','image']
+
+from django import forms
+from .models import WhatsNew
+
+class WhatsNewForm(forms.ModelForm):
+    class Meta:
+        model = WhatsNew
+        fields = ['title', 'content']

@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.tweetlist, name='tweetlist'),
+       
     path('create/', views.tweetcreate, name='tweetcreate'),
     path('tweet/<int:tweet_id>/', views.tweet_detail, name='tweet_detail'),
     path('<int:tweet_id>/edit/', views.tweetedit, name='tweetedit'),
@@ -28,6 +30,10 @@ urlpatterns = [
     path('upload/', views.upload_reel, name='upload'),
     path('reels/', views.reels, name='reels'),
     path('api/media/<path:path>', views.media_view),
+    path('whats-new/',views.whats_new_list, name='whats_new_list'),
+    path('whats-new/add/',views.add_whats_new, name='add_whats_new'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='account_login'),
+
 
 
 ]

@@ -371,3 +371,22 @@ def media_view(request, path):
         return FileResponse(open(file_path, 'rb'))
     else:
         raise Http404
+
+
+from django.shortcuts import render, redirect
+from .models import WhatsNew
+from .forms import WhatsNewForm
+
+def whats_new_list(request):
+    entries = WhatsNew.objects.all().order_by('-created_at')
+    return render(request, 'whats_new_list.html', {'entries': entries})
+
+def add_whats_new(request):
+    if request.method == 'POST':
+        form = WhatsNewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('whats_new_list')
+    else:
+        form = WhatsNewForm()
+    return render(request, 'add_whats_new.html', {'form': form})

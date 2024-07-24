@@ -19,23 +19,30 @@
 <div class="row justify-content-center gap-1">
   
 
-    <div class="stories">
-      <div class="add-story  ">
-        <a href="story/ " class="add"><i class="fa-solid fa-plus"></i></a>
-      <p style="margin-left: 15px;" class="card-text time">Add</p>
+  <div class="stories">
+    <div class="add-story">
+      <a href="story/" class="add"><i class="fa-solid fa-plus"></i></a>
+      <p class="card-text time" style="margin-left: 15px;">Add</p>
     </div>
-      {% for story in all_stories %}
-          <div class="story" style="">
-            <div>
-              {% if story.image.name %}
-              <a href="#" onclick="openImage('{{ story.image.url }}')">
-                <img src="{{ story.image.url }}" alt="Story image" style="object-fit: cover;">
-              {% endif %}
-                <!-- <p>Posted by {{ story.user.username }} at {{ story.created_at }}</p> -->
-                <p style="margin-left:10px;" class="card-text time ">{{story.user}}</p>
-              </div>
-            </div>
-          {% endfor %}
+    {% for story in all_stories %}
+      <div class="story">
+        <div>
+          {% if story.image.name %}
+          <a href="#" onclick="openImage('{{ story.image.url }}')">
+            <img src="{{ story.image.url }}" alt="Story image" style="object-fit: cover;">
+          </a>
+          {% endif %}
+          <div class="username-container">
+            <p>
+              {{ story.user }}
+  
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
   </div>
     {% for tweet in tweets %}
     <div class=" mb-3" >
@@ -78,6 +85,7 @@
                 {% if user in tweet.likes.all %}
                 <i class="fa-solid fa-heart" style="color: #f50505; font-size: 30px;"></i>
                 {% else %}
+                {{like.user}}
                 <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
                 {% endif %}
             </button>

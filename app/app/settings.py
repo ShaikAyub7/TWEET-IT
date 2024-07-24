@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zusv)2q%yf17r4fc#y$hhf5+nave2n_tn85%jjy&91wk7uq5s&
 DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','localhost','*']
-
+SITE_ID =1
 
 # Application definition
 
@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'social_django',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -56,7 +63,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'app','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +71,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'django.template.context_processors.request',
+
             ],
         },
     },
@@ -110,10 +120,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='947393586787-f93j3854uft7vikm2dpq7iu2oe110s6b.apps.googleusercontent.com '
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/complete/google-oauth2/'
+# # Internationalization
+# # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
