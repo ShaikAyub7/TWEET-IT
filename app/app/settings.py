@@ -126,11 +126,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='947393586787-f93j3854uft7vikm2dpq7iu2oe110s6b.apps.googleusercontent.com '
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/complete/google-oauth2/'
-# # Internationalization
-# # https://docs.djangoproject.com/en/5.0/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
