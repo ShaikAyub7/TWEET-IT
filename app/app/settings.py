@@ -124,6 +124,17 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+<<<<<<< HEAD
+=======
+
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='947393586787-f93j3854uft7vikm2dpq7iu2oe110s6b.apps.googleusercontent.com '
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/complete/google-oauth2/'
+# # Internationalization
+# # https://docs.djangoproject.com/en/5.0/topics/i18n/
+
+>>>>>>> 2fba9ca (google login)
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
