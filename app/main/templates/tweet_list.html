@@ -64,9 +64,19 @@
           <h5 class="card-title">
             <span>
               {% if tweet.user.profile.profile_pic %}
-              <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
-                {% endif %}
-            </span>
+                  <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+              {% else %}
+                  {% if tweet.user.socialaccount_set.all %}
+                      {% for account in tweet.user.socialaccount_set.all %}
+                          {% if account.provider == 'google' %}
+                              <img src="{{ account.get_avatar_url }}" alt="Google Profile Image Picture" class="profile-img profile_pic">
+                          {% endif %}
+                      {% endfor %}
+                  {% else %}
+                  {% endif %}
+              {% endif %}
+          </span>
+          
             {{ tweet.user.username }}
           </h5>
           <p class="card-text">{{ tweet.text }}</p>
@@ -92,6 +102,19 @@
             <p>Likes: {{ tweet.total_likes }}</p>
         </form>
         <div>
+          <div>
+            <form action="{% url 'followers' tweet.id %}" method="post" >
+              {% csrf_token %}
+              {% if user in tweet.Follwers.all %}
+             <button type="submit" class="btn btn-primary">Following</button>
+                  {% else %}
+                  <button>
+<button type="submit" class="btn btn-danger">Follow</button>                
+                </button>
+                  {% endif %}
+              <!-- <p>Followers: {{ tweet.total_follwers }}</p> -->
+          </form>
+          </div>
           
           {% if tweet.user == user %}
           <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>

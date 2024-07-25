@@ -24,12 +24,16 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     likes = models.ManyToManyField(User, related_name='liked_tweets', blank=True)
+    Follwers = models.ManyToManyField(User,related_name='follwers',blank=True)
 
     def __str__(self) -> str:
         return f'{self.user.username} - {self.text[:10]}'
         
     def total_likes(self):
         return self.likes.count()
+    
+    def total_follwers(self):
+        return self.Follwers.count()
 
     def created_at_in_user_timezone(self):
         user_timezone = pytz.timezone(self.user.profile.timezone)

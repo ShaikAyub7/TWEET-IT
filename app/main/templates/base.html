@@ -978,9 +978,21 @@ object-fit: cover;
   <body>
     <nav class="navbar navbar-expand-xl me-auto" >
         <div class="container-fluid container-nav">
-          {% if request.user.profile.profile_pic %}
-            <img src="{{ request.user.profile.profile_pic.url }}" class="profile-image" alt="Profile Image" style="height: 40px; width: 40px;">
-        {% endif %}
+          
+            {% if tweet.user.profile.profile_pic %}
+                <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+            {% else %}
+                {% if tweet.user.socialaccount_set.all %}
+                    {% for account in tweet.user.socialaccount_set.all %}
+                        {% if account.provider == 'google' %}
+                            <img src="{{ account.get_avatar_url }}" alt="Google Profile Image Picture" class="profile-img profile_pic">
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            {% endif %}
+       
+        
         <!-- <link rel="icon" href="{% static 'photos/tweet.png' %}" type="image/png/svg"> -->
         <a class="navbar-brand " href="#"> &nbsp;TWEET-IT</a>
         <!-- <img src="{% static 'app/photos/tweet.png' %}" alt=""> -->
