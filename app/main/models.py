@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 from django.db import models
 from django.utils import timezone
@@ -34,6 +33,8 @@ class Tweet(models.Model):
     
     def total_follwers(self):
         return self.Follwers.count()
+    def total_tweets(self):
+        return self.Tweet.count()
 
     def created_at_in_user_timezone(self):
         user_timezone = pytz.timezone(self.user.profile.timezone)

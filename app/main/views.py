@@ -1,6 +1,6 @@
+from django.http import FileResponse, Http404
+import os
 from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
@@ -219,6 +219,7 @@ def reply_create(request, tweet_id):
 @login_required
 def like_tweet(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
+    user = request.user
     if tweet.likes.filter(id=request.user.id).exists():
         tweet.likes.remove(request.user)
         return redirect('tweetlist')
@@ -357,13 +358,6 @@ def reels(request):
     reels = Story.objects.filter(video__isnull=False).order_by('-created_at')[:10]  # Fetch latest 10 reels
     return render(request, 'reels.html', {'reels': reels})
 
-
-# vie
-
-
-
-from django.http import FileResponse, Http404
-import os
 
 def media_view(request, path):
     file_path = os.path.join('/tmp/media', path)
