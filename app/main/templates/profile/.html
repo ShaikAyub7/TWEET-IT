@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block start %}
+<h3 class="m-2">Profile Page</h3>
+
+<div class="containerProfile m-4 top">
+    <div class="profile-card">
+        <!-- Display profile image -->
+        {% if request.user.profile.profile_pic %}
+            <img src="{{ request.user.profile.profile_pic.url }}" class="profile-image" alt="Profile Image">
+        {% else %}
+            <!-- Placeholder image or default profile picture -->
+        {% endif %}
+        <!-- Display username and other profile information -->
+        <p class="mt-3">Username: {{ request.user.username }}</p>
+        <div class="user-info">
+            <p>Email: {{ request.user.email }}</p>
+            <p>Mobile: {{ request.user.profile.phone_number }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Upload profile picture form -->
+<form method="post" enctype="multipart/form-data" class="m-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+<!-- Display current profile picture -->
+<div>
+    {% if request.user.profile.profile_pic %}
+    {% endif %}
+    <a href="{% url 'tweetlist' %}" class="btn btn-warning mt-4 m-4">Back</a>
+</div>
+{% endblock %}

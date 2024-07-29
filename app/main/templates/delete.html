@@ -5,13 +5,9 @@ Delete
 
 {% block start %}
 <div class="delete-box container ">
-
-    
     <div class="card-3 ">
-        
         <form method="post"class="form">
-            <h2>Delete Tweet
-                </h2>
+            <h2>Delete Tweet</h2>
             {% csrf_token %}
             
             <button class="btn btn-danger" type="submit">delete</button>
@@ -19,10 +15,7 @@ Delete
             <a href="{% url 'tweetlist' %}" class="btn btn-primary m-2 p-2">Cancel</a>
         </div>
     </div>
-
 </form>
-
-
 <div class="reply-actions">
     {% if reply.user == request.user %}
         <a href="{% url 'reply_delete' tweet.id comment.id reply.id %}" class="btn btn-danger">Delete</a>
