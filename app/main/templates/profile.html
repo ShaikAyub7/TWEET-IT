@@ -13,6 +13,15 @@ Profile
             <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
               {% if user.profile.profile_pic %}
                 <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+
+                {%else%}
+                {% if user.socialaccount_set.all %}
+        {% for account in user.socialaccount_set.all %}
+            {% if account.provider == 'google' %}
+                <img src="{{ account.get_avatar_url }}" alt="Google Profile Image" class="profile-img">
+            {% endif %}
+        {% endfor %}
+    {% endif %}
               {% endif %}
               {% if request.user == user %}
                 <a href="{% url 'edit_profile' %}" type="button" class="btn btn-outline-dark text-body mt-5" style="z-index: 1;">
@@ -21,10 +30,11 @@ Profile
               {% endif %}
             </div>
             <div class="ms-3" style="margin-top: 130px;">
-              <h5>{{ user.username }}</h5>
-              <p>{{ user.profile.country }}</p>
+              <h5 class="dark" style="color: black;">{{ user.username }}</h5>
+              <p style="color: black;">{{ user.profile.country }}</p>
             </div>
           </div>
+          
           <div class="p-4 text-black bg-body-tertiary">
             <div class="d-flex justify-content-end text-center py-1 text-body">
               <div>
@@ -32,7 +42,7 @@ Profile
                 <p class="small text-muted mb-0">Photos</p>
               </div>
               <div class="px-3">
-                <p class="mb-1 h5">1M</p>
+                <p class="mb-1 h5"> {{ tweet.total_followers }}</p>
                 <p class="small text-muted mb-0">Followers</p>
               </div>
               <div>
@@ -41,6 +51,7 @@ Profile
               </div>
             </div>
           </div>
+ 
           <div class="card-body p-4 text-black">
             <div class="mb-5 text-body">
               <p class="lead fw-normal mb-1">About</p>
@@ -68,45 +79,25 @@ Profile
                     <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; min-height: 200px; max-height: 400px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px; border-radius: 10px;">
                   </a>
                     {% endif %}
-                    <!-- <div class="card-body"> -->
-                      <!-- <h5 class="card-title"> -->
-                        <span>
-                          {% if tweet.user.profile.google_profile_pic %}
-                          <img src="{{ tweet.user.profile.google_profile_pic }}" alt="Profile Picture" class="profile_pic">
-                          {% endif %}
-                        </span>
-                        <!-- {{ tweet.user.username }} -->
-                      <!-- </h5> -->
-                      <!-- <p class="card-text">{{ tweet.text }}</p> -->
-                      <!-- {% if tweet.updated_at %}
-                      <p class="card-text time">Last Updated: {{ tweet.updated_at }}</p>
-                      {% else %}
-                      <p class="card-text time">Created: {{ tweet.created_at }}</p>
-                      {% endif %}
-                      <div class="contents mt-2">
-                        <form action="{% url 'like_tweet' tweet.id %}" method="post">
-                          {% csrf_token %}
-                          <button type="submit" style="border: none; background: none;">
-                              {% if request.user in tweet.likes.all %}
-                              <i class="fa-solid fa-heart" style="color: #f50505; font-size: 25px;"></i>
-                              {% else %}
-                              <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
-                              {% endif %}
-                          </button>
-                          <p>Likes: {{ tweet.total_likes }}</p>
-                        </form>
-                        <div>
-                          {% if tweet.user == request.user %}
-                          <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
-                          <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
-                          {% endif %}
-                        </div>
-                      </div>
-                    </div> -->
-                  <!-- </div> -->
+                    
+                    <div class="contents mt-2">
+                      <form action="{% url 'followers' tweet.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="border: none; background: none;">
+                            {% if request.user in tweet.Followers.all %}
+                            unfollow
+                            {% else %}
+                            follow
+                            {% endif %}
+                        </button>
+                        <p>Followers: {{ tweet.total_followers }}</p>
+                      </form>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
                 {% endfor %}
+              </div>
             </div>
           </div>
         </div>
@@ -115,7 +106,5 @@ Profile
   </div>
 </section>
 <a href="/" class="btn btn-primary m-3">Back</a>
-
-<!-- Toast Notification -->
 
 {% endblock %}

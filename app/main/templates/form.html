@@ -3,7 +3,6 @@
 {% block start %}
 
 <h2>{% if form.instance.pk %} Edit Tweet {% else %} Create Tweet {% endif %}</h2>
-
 <form method="post" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'tweetedit' form.instance.pk %}{% else %}{% url 'tweetcreate' %}{% endif %}" class="form m-4">
     {% csrf_token %}
     {{ form.as_p }}

@@ -25,9 +25,7 @@ Search
             {%else%}
             <div class="card__avatar profile-card d-flex mb-2"><img src="" alt="Profile Picture" class="profile_pic">
                 <a href="" class="card__username mt-2 m-2">{{ user.username }}</a>
-
             </div>
-        
         {% endif %}
         <div class="card__info mt-3">
             <div class="card__actions">
@@ -42,5 +40,4 @@ Search
 <p>No users found for "{{ query }}"</p>
 {% endif %}
 <a href="/" class="btn btn-primary m-3">Back</a>
-
 {% endblock %}
