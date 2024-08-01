@@ -4,17 +4,22 @@
 Edit-Profile
 {% endblock %}
 {% block start %}
-{% if messages %}
+<div class='main-profile'>
+
+
+    {% if messages %}
+    
     <div class="messages">
         {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
         {% endfor %}
     </div>
-{% endif %}
-<form method="post" enctype="multipart/form-data" class="m-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="m-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
 <a href="/" class="btn btn-primary m-3">Back</a>
 {% endblock %}

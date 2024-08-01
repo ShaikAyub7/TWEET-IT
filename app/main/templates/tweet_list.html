@@ -13,7 +13,7 @@
   <div class="stories">
     <div class="add-story">
       <a href="story/" class="add"><i class="fa-solid fa-plus"></i></a>
-      <p class="card-text time" style="margin-left: 15px;">Add</p>
+      <p class="card-text time mb-2" style="margin-left: 20px;">Add</p>
     </div>
     {% for story in all_stories %}
       <div class="story">
@@ -90,7 +90,7 @@
             <p>Likes: {{ tweet.total_likes }}</p>
         </form>
         <div>
-          <div>
+          {% comment %} <div>
             <form action="{% url 'followers' tweet.id %}" method="post" >
               {% csrf_token %}
               {% if user in tweet.Follwers.all %}
@@ -101,7 +101,7 @@
                 </button>
                   {% endif %}
           </form>
-          </div>
+          </div> {% endcomment %}
           {% if tweet.user == user %}
           <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
           <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>

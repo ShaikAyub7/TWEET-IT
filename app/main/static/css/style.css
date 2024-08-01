@@ -1578,3 +1578,62 @@ object-fit: cover;
   cursor: pointer;
   z-index: 10000;
 }
+.s
+.search-bar{
+  width: 25%;
+  margin: 10px auto;
+
+}
+.profile-container::-webkit-scrollbar{
+  display: none;
+}
+.profile-container{
+    max-width: 60%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 0.5px solid gray;
+  height: 80vh;
+padding: 20px ;
+overflow: scroll;
+}
+/* .card-container{
+  max-width: 60%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 0.5px solid gray;
+  height: 80vh;
+padding: 20px ;
+} */
+.main-setting{
+  width:60%;
+  margin:20px auto ;
+  border-radius: 10px;
+  border: 0.5px solid gray;
+  height: 80vh;
+padding: 20px ;
+}
+.main-profile{
+  width: 40%;
+  height: 100%;
+  margin: 10px auto;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid gray;
+  border-radius: 10px;
+
+
+
+}
+.story-main{
+  border: 0.5px solid gray;
+max-width: 60%;
+  margin:20px auto;
+  border-radius: 10px;
+ display: flex;
+ /* justify-content: center; */
+
+
+
+} 

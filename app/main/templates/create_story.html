@@ -3,11 +3,16 @@
 Create-Story
 {% endblock %}
 {% block start %}
-<form method="post" enctype="multipart/form-data" class="mt-3 m-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add to Story</button>
-</form>
+<div class='story-main'>
+
+
+
+    <form method="post" enctype="multipart/form-data" class="mt-3 m-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary m-4">Add to Story</button>
+    </form>
+</div>
 <a href="/" class="btn btn-primary m-4">Back</a>
 
 {% endblock%}
