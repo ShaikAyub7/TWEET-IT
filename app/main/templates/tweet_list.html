@@ -41,7 +41,7 @@
         <a href="{% url 'tweet_detail' tweet.id %}">
 
         {% if tweet.photo %}
-        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px;" loading="lazy">
+        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover; border-top-left-radius: 20px; border-top-right-radius: 20px; max-height:'200px'" loading="lazy">
         {% endif %}
       </a>
       {% if tweet.video.name %}
