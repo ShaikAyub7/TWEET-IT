@@ -72,10 +72,9 @@ TWEET-IT      {% endblock %}</title>
               </li> -->
              
 <li>
-  <a href="{% url 'login' %}" class="nav-link"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> logout</a>
-
+  <a href="{% url 'login' %}" class="nav-link"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> logout</a
 </li>
-            </ul>
+  </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
               <button class="btn btn-outline-success" type="submit">Search</button>
@@ -84,9 +83,6 @@ TWEET-IT      {% endblock %}</title>
         </div>
       </nav>
       {% block start %}
-     
-
-
     {% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
