@@ -13,7 +13,12 @@ from django.contrib.auth.models import User
 from datetime import timedelta
 from .models import Tweet, Story, Profile
 from .forms import ProfileForm, ReplyForm, StoryForm, TweetForm, UserRegistrationForm
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.shortcuts import render, redirect
+from .models import WhatsNew
+from .forms import WhatsNewForm
 
 def base(request):
     return render(request, 'base.html')
@@ -34,10 +39,7 @@ def tweetlist(request,user_id=None):
         search_results = Tweet.objects.filter (
             Q(text__icontains = search_query)|
             Q(id__icontains = search_query)|
-            Q(photo__icontains = search_query),
-
-
-            
+            Q(photo__icontains = search_query), 
         ).distinct()
 
         if search_results.exists():
@@ -49,7 +51,6 @@ def tweetlist(request,user_id=None):
         created_at__gte=timezone.now() - timedelta(hours=24)
     ).order_by('-created_at')
     # viewed_stories = StoryView.objects.filter(user=user).values_list('story_id', flat=True) if user else []
-
     context = {
         'tweets': tweets,
         'user': user,
@@ -58,7 +59,6 @@ def tweetlist(request,user_id=None):
         # 'viewed_stories':viewed_stories,
         'profile_url': reverse('profile', args=[user.id]) if user else '#'
     }
-
     return render(request, 'tweet_list.html', context)
 
 @login_required
@@ -69,7 +69,6 @@ def profile(request, user_id):
     except Profile.DoesNotExist:
         return HttpResponse(f'User profile does not exist. Please create a profile first. \n you can create profile in setting \n 1. go to settings \n 2.select createprofile \n 3.create a profile', status=404)
     tweets = Tweet.objects.filter(user=user).order_by('-created_at')
-
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -77,15 +76,14 @@ def profile(request, user_id):
             return redirect('profile', user_id=user.id)  # Ensure user.id is valid
     else:
         form = ProfileForm(instance=profile)
-
     context = {
         'tweets': tweets,
         'form': form,
         'user': user,
         'profile': profile,
     }
-
     return render(request, 'profile.html', context)
+
 @login_required
 def tweetcreate(request):
     if request.method == 'POST':
@@ -97,9 +95,7 @@ def tweetcreate(request):
             return redirect('tweet_detail', tweet_id=tweet.id)
     else:
         form = TweetForm()
-
     return render(request, 'form.html', {'form': form})
-
 
 @login_required
 def tweetedit(request, tweet_id):
@@ -112,7 +108,6 @@ def tweetedit(request, tweet_id):
             return redirect('tweetlist')
     else:
         form = TweetForm(instance=tweet)
-
     return render(request, 'form.html', {'form': form})
 
 def tweetdelete(request, tweet_id):
@@ -127,7 +122,6 @@ def login_page(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -141,7 +135,6 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('email')
-
         if User.objects.filter(username=username).exists():
             messages.error(request, 'user is already taken.')
             return redirect('register')
@@ -161,12 +154,10 @@ def logout_page(request):
     return redirect('login')
     # return render(request, 'registration/login.html')
 
-
 @login_required
 def tweet_detail(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
     replies = tweet.replies.all()
-
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
@@ -177,7 +168,6 @@ def tweet_detail(request, tweet_id):
             return redirect('tweet_detail', tweet_id=tweet.id)
     else:
         form = ReplyForm()
-    
     context = {
         'tweet': tweet,
         'replies': replies,
@@ -187,7 +177,6 @@ def tweet_detail(request, tweet_id):
 
 def reply_create(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
-
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
@@ -198,7 +187,6 @@ def reply_create(request, tweet_id):
             return redirect('tweetlist')
     else:
         form = ReplyForm()
-
     context = {
         'tweet': tweet,
         'form': form,
@@ -226,7 +214,6 @@ def like_tweet(request, tweet_id):
     else:
         tweet.likes.add(request.user)
         return redirect('tweetlist')
-
     return render(request,'tweetlist', tweet_id=tweet.id)
 
 def setting(request):
@@ -264,13 +251,6 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
     return render(request, 'edit-profile.html', {'form': form})
 
-
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Profile
-
-
 @login_required
 def create_profile(request):
     # Check if the user already has a profile
@@ -280,64 +260,16 @@ def create_profile(request):
         return redirect('tweetlist')  # Redirect to a suitable URL
     
     if request.method == 'POST':
-        # Process profile creation form data
-        # Example:
-        # bio = request.POST.get('bio', '')  # Adjust based on your form fields
         profile = Profile(user=request.user)
         profile.save()
         messages.success(request, 'Profile created successfully!')
         return redirect('tweetlist')  # Redirect to tweet list or another page after creation
-    
     return render(request, 'create_profile.html')
-
-
-
-# from django.http import JsonResponse
-# from django.views.decorators.http import require_POST
-# from django.views.decorators.csrf import csrf_exempt
-# from .models import Story, StoryView
-
-# @require_POST
-# @csrf_exempt
-# def mark_story_viewed(request, story_id):
-#     story = Story.objects.get(id=story_id)
-#     story.viewed = True
-#     story.save()
-#     return JsonResponse({'status': 'success'})
-
-
-
-
-
-
-
-
 
 @login_required
 def user_tweets(request):
     tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'user_tweets.html', {'tweets': tweets})
-
-
-# @login_required
-# def notifications(request):
-#     notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')
-#     unread_count = notifications.filter(read=False).count()
-#     return render(request, 'notifications.html', {'notifications': notifications, 'unread_count': unread_count})
-
-# @login_required
-# def mark_notification_as_read(request, notification_id):
-#     notification = Notification.objects.get(pk=notification_id)
-#     notification.read = True
-#     notification.save()
-#     return redirect('notifications')
-
-
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Story
-from .forms import StoryForm
 
 @login_required
 def upload_reel(request):
@@ -367,10 +299,6 @@ def media_view(request, path):
         raise Http404
 
 
-from django.shortcuts import render, redirect
-from .models import WhatsNew
-from .forms import WhatsNewForm
-
 def whats_new_list(request):
     entries = WhatsNew.objects.all().order_by('-created_at')
     return render(request, 'whats_new_list.html', {'entries': entries})
@@ -384,6 +312,7 @@ def add_whats_new(request):
     else:
         form = WhatsNewForm()
     return render(request, 'add_whats_new.html', {'form': form})
+
 @login_required
 def followers(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
@@ -393,5 +322,4 @@ def followers(request, tweet_id):
     else:
         tweet.Follwers.add(request.user)
         return redirect('tweetlist')
-
     return render(request,'tweetlist', tweet_id=tweet.id)
