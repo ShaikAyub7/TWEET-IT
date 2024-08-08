@@ -313,13 +313,13 @@ def add_whats_new(request):
         form = WhatsNewForm()
     return render(request, 'add_whats_new.html', {'form': form})
 
-@login_required
-def followers(request, tweet_id):
-    tweet = get_object_or_404(Tweet, id=tweet_id)
-    if tweet.Follwers.filter(id=request.user.id).exists():
-        tweet.Follwers.remove(request.user)
-        return redirect('tweetlist')
-    else:
-        tweet.Follwers.add(request.user)
-        return redirect('tweetlist')
-    return render(request,'tweetlist', tweet_id=tweet.id)
+# @login_required
+# def followers(request, tweet_id):
+#     tweet = get_object_or_404(Tweet, id=tweet_id)
+#     if tweet.Follwers.filter(id=request.user.id).exists():
+#         tweet.Follwers.remove(request.user)
+#         return redirect('tweetlist')
+#     else:
+#         tweet.Follwers.add(request.user)
+#         return redirect('tweetlist')
+#     return render(request,'tweetlist', tweet_id=tweet.id)
