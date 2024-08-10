@@ -1,5 +1,4 @@
 from django.db import models
-# Create your models here.
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
@@ -7,8 +6,6 @@ from datetime import timedelta
 import pytz
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-
-
 
 # Create your models here.
 
@@ -23,7 +20,6 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     likes = models.ManyToManyField(User, related_name='liked_tweets', blank=True)
-    Follwers = models.ManyToManyField(User,related_name='follwers',blank=True)
 
     def __str__(self) -> str:
         return f'{self.user.username} - {self.text[:10]}'

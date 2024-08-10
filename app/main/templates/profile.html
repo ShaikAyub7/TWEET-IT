@@ -80,19 +80,7 @@ Profile
                   </a>
                     {% endif %}
                     
-                    <div class="contents mt-2">
-                      <form action="{% url 'followers' tweet.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" style="border: none; background: none;">
-                            {% if request.user in tweet.Followers.all %}
-                            unfollow
-                            {% else %}
-                            follow
-                            {% endif %}
-                        </button>
-                        <p>Followers: {{ tweet.total_followers }}</p>
-                      </form>
-                    </div>
+                  
 
                   </div>
                 </div>
