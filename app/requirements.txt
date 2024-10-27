@@ -77,4 +77,4 @@ tzdata==2024.1
 urllib3==2.2.2
 visions==0.7.4
 wcwidth==0.2.13
-whitenoise==6.7.0
+whitenoise==6
