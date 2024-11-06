@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -97,6 +98,15 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+import dj_database_url
+
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         "postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMzMwYTliYmEtMjY3Zi00ZGZiLWJjZWUtMDUwOTdlN2IzNTFjIiwidGVuYW50X2lkIjoiNmYwYzMzMTMzOTM3NzM0MDQ3OTJkZWIyZTIwYjU0ZDJlNThhNDhlNDg1YWE5YzEyMTk1YWFlMThjYzU2MDc3MCIsImludGVybmFsX3NlY3JldCI6ImZjYWI0Yjc3LTQ5ZDMtNDViMi1iMWMwLTdmZDliYWJiZDUyYiJ9.57hyxEilCwsqxuXvu7QKfQ0t41cRz48UaYCKUHErUEo",
+#         engine='django.db.backends.postgresql'
+#     )
+# }
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
